@@ -1,12 +1,12 @@
 {
-    "name": "tinywan/nacos-sdk-php",
+    "name": "tals/nacos-sdk-php",
     "description": "PHP SDK For Nacos",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Tinywan",
-            "email": "756684177@qq.com"
+            "name": "howlcastle",
+            "email": ""
         }
     ],
     "require": {

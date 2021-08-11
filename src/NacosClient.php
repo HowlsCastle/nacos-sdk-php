@@ -21,7 +21,7 @@ use Nacos\Models\ServiceInstanceList;
 class NacosClient
 {
     const DEFAULT_PORT = 8848;
-    const DEFAULT_TIMEOUT = 3;
+    const DEFAULT_TIMEOUT = 3000;
 
     const DEFAULT_GROUP = 'DEFAULT_GROUP';
 
@@ -48,16 +48,23 @@ class NacosClient
      */
     protected $timeout = self::DEFAULT_TIMEOUT;
 
+    protected $accessKey;
+
+    protected $secretKey;
+
     /**
      * __construct function
      *
      * @param string $host
      * @param int $port
      */
-    public function __construct(string $host, int $port)
+    public function __construct(string $host, int $port, string $namespace, string $accessKey, string $secretKey)
     {
         $this->host = $host;
         $this->port = $port;
+        $this->namespace = $namespace;
+        $this->accessKey = $accessKey;
+        $this->secretKey = $secretKey;
     }
 
     /**
@@ -91,6 +98,10 @@ class NacosClient
         if (!isset($options['timeout'])) {
             $options['timeout'] = $this->timeout;
         }
+
+        $options['headers']['spas-accesskey'] = $this->accessKey;
+        $options['headers']['spas-secretkey'] = $this->secretKey;
+        $options['headers']['spas-signature'] = 'signature';
 
         $client = new Client([
             'base_uri' => "http://{$this->host}:{$this->port}",
